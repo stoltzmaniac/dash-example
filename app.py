@@ -2,15 +2,25 @@ import flask
 import os
 
 import dash
+import dash_auth
 import dash_core_components as dcc
 import dash_html_components as html
+
+# Will be replaced by database
+VALID_USERNAME_PASSWORD_PAIRS = {
+    'hello': 'world'
+}
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 server = flask.Flask(__name__)
 app = dash.Dash(__name__, server=server, external_stylesheets=external_stylesheets)
-
 server = app.server
+
+auth = dash_auth.BasicAuth(
+    app,
+    VALID_USERNAME_PASSWORD_PAIRS
+)
 
 app.layout = html.Div([
     html.H2('Hello World'),
